@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.Period;
 
 public class Member {
-
-        public class Member {
             private String name;
             private LocalDate birthDate;
             private int memberId;
@@ -14,23 +12,16 @@ public class Member {
             private boolean restance;
             private boolean konkurrenceSvømmer;
 
-            public Member(String name, LocalDate birthDate, int memberId, boolean active) {
-                this.name = name;
-                this.birthDate = birthDate;
-                this.memberId = memberId;
-                this.active = active;
-            }
-
             public Member(String name, LocalDate birthDate, int memberId, boolean active,
                           boolean restance, boolean konkurrenceSvømmer) {
                 this.name = name;
                 this.birthDate = birthDate;
                 this.memberId = memberId;
-                this.subscription = calculatePrice();
                 this.active = active;
                 this.restance = restance;
                 this.konkurrenceSvømmer = konkurrenceSvømmer;
             }
+
 
             public String getName() {
                 return name;
@@ -47,25 +38,23 @@ public class Member {
             public int getAge() {
                 return Period.between(birthDate, LocalDate.now()).getYears();
             }
-            public boolean konkurrenceSvømmer() {
-                return konkurrenceSvømmer;
-            }
+
             public int getMemberId() {
                 return memberId;
             }
 
-            public void setMmeberId(int memberId) {
+            public void setMemberId(int memberId) {
                 this.memberId = memberId;
             }
 
-            public boolean getActive() {
+            public boolean isActive() {
                 return active;
             }
 
             public void setActive(boolean active) {
                 this.active = active;
             }
-            public boolean getRestance() {
+            public boolean isRestance() {
                 return restance;
             }
 
@@ -73,13 +62,24 @@ public class Member {
                 this.restance = restance;
             }
 
-
-            public double calculatePrice() {
-                return 0;
+            public boolean isKonkurrenceSvømmer() {
+                return konkurrenceSvømmer;
             }
 
+            public void setKonkurrenceSvømmer(boolean konkurrenceSvømmer) {
+                this.konkurrenceSvømmer = konkurrenceSvømmer;
+            }
 
-        }
+            public double getSubscription() {
+                return subscription;
     }
+
+    public void setSubscription() {
+                this.subscription = subscription;
+    }
+}
+
+
+
 
 

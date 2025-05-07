@@ -9,7 +9,7 @@ public class menuController {
         boolean y = true;
 
         while (y) {
-            System.out.println("Welcome message");
+            System.out.println("Delfinen Svømmeklub");
             System.out.println(mainMenuTekst());
 
             if (!scanner.hasNextInt()) {
@@ -39,7 +39,7 @@ public class menuController {
                 """
                         1. Medlemmer
                         2. Kontingent
-                        3. Vis træningsstatistik
+                        3. Vis resultater
                         4. Afslut program
                         """;
     }
@@ -51,9 +51,9 @@ public class menuController {
 
         while (running) {
             System.out.println("1. Registrer nyt medlem ");
-            System.out.println("2. Fjern medlem ");
+            System.out.println("2. Rediger medlem ");
             System.out.println("3. Vis alle medlemmer ");
-            System.out.println("4. Rediger medlem ");
+            System.out.println("4. Fjern medlem ");
             System.out.println("5. Tilbage ");
 
             if (!scanner.hasNextInt()) {
