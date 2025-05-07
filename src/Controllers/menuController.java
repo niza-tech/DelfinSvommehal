@@ -1,3 +1,5 @@
+package Controllers;
+
 import java.util.Scanner;
 
 public class menuController {
