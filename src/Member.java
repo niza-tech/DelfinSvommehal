@@ -36,9 +36,7 @@ public class Member {
             public int getAge() {
                 return Period.between(birthDate, LocalDate.now()).getYears();
             }
-            public boolean konkurrenceSvømmer() {
-                return konkurrenceSvømmer;
-            }
+
             public int getMemberId() {
                 return memberId;
             }
@@ -54,7 +52,7 @@ public class Member {
             public void setActive(boolean active) {
                 this.active = active;
             }
-            public boolean getRestance() {
+            public boolean isRestance() {
                 return restance;
             }
 
@@ -70,8 +68,14 @@ public class Member {
                 this.konkurrenceSvømmer = konkurrenceSvømmer;
             }
 
+            public double getSubscription() {
+                return subscription;
+    }
 
-            }
+    public void setSubscription() {
+                this.subscription = subscription;
+    }
+}
 
 
 
