@@ -1,6 +1,8 @@
 package Controllers;
 
-public class resultatController {
+import File.IFileReader;
+
+public class resultatController implements IFileReader {
     public static void Competition() {
     }
 
@@ -8,5 +10,10 @@ public class resultatController {
     }
 
     public static void showMembers() {
+    }
+
+    @Override
+    public void fileReader() {
+
     }
 }

@@ -4,7 +4,6 @@ import Medlem.Member;
 
 public class medlemController {
     public static Member opretMedlem() {
-
     }
 
     public static void fjernMedlem() {

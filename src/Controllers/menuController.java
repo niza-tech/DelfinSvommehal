@@ -87,6 +87,7 @@ public class menuController {
     }
     public static void kontingentMenu(){
         Scanner scanner = new Scanner(System.in);
+        kontController kont = new kontController();
         boolean u = true;
         while (u) {
 System.out.println("1. Vis kontingent ");
@@ -102,6 +103,7 @@ continue;
 int choice = scanner.nextInt();
 switch (choice){
     case 1:
+        kont.fileReader();
         break;
     case 2:
         kontController.showRestance();
@@ -143,6 +145,7 @@ switch (choice){
 
     public static void trainingMenu(){
         Scanner scanner = new Scanner(System.in);
+        resultatController resultat = new resultatController();
         boolean runs = true;
         while (runs) {
 System.out.println("1. Vis top 5 for hver disciplin ");
@@ -158,6 +161,7 @@ continue;
 int choice = scanner.nextInt();
 switch (choice) {
     case 1:
+        resultat.fileReader();
         break;
     case 2:
         resultatController.registerTraining();

@@ -1,6 +1,13 @@
 package Controllers;
 
-public class kontController {
+import File.IFileReader;
+
+public class kontController implements IFileReader {
     public static void showRestance() {
+    }
+
+
+    public void fileReader() {
+
     }
 }
