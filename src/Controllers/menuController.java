@@ -25,10 +25,13 @@ public class menuController {
                     menuController.medlemMenu();
                     break;
                 case 2:
+                    menuController.kontingentMenu();
                     break;
                 case 3:
+                    menuController.statistikMenu();
                     break;
                 case 4:
+                    y = false;
                     break;
             }
         }
@@ -65,17 +68,109 @@ public class menuController {
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
+                    medlemController.opretMedlem();
                     break;
                 case 2:
+                    medlemController.fjernMedlem();
                     break;
                 case 3:
+                    medlemController.displayMembers();
                     break;
                 case 4:
+                    medlemController.redigerMedlem();
                     break;
                 case 5:
                     running = false;
                     break;
             }
         }
+    }
+    public static void kontingentMenu(){
+        Scanner scanner = new Scanner(System.in);
+        boolean u = true;
+        while (u) {
+System.out.println("1. Vis kontingent ");
+System.out.println("2. Vis Vis restance ");
+System.out.println("3. Tilbage ");
+
+if (!scanner.hasNextInt()) {
+System.out.println("Ugyldigt input!");
+scanner.nextLine();
+continue;
+}
+
+int choice = scanner.nextInt();
+switch (choice){
+    case 1:
+        break;
+    case 2:
+        kontController.showRestance();
+        break;
+    case 3:
+        u = false;
+        break;
+}
+        }
+    }
+
+    public static void statistikMenu(){
+        Scanner scanner = new Scanner(System.in);
+        boolean sprint = true;
+        while (sprint) {
+            System.out.println("1. Trænin ");
+            System.out.println("2. Stævne ");
+            System.out.println("3. Tilbage ");
+
+            if (!scanner.hasNextInt()) {
+                System.out.println("Ugyldigt input!");
+                scanner.nextLine();
+                continue;
+            }
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    menuController.trainingMenu();
+                    break;
+                case 2:
+                    resultatController.Competition();
+                    break;
+                case 3:
+                    sprint = false;
+                    break;
+            }
+        }
+    }
+
+    public static void trainingMenu(){
+        Scanner scanner = new Scanner(System.in);
+        boolean runs = true;
+        while (runs) {
+System.out.println("1. Vis top 5 for hver disciplin ");
+System.out.println("2. Opret");
+System.out.println("3. Vis alle");
+System.out.println("4. Tilbage");
+
+if (!scanner.hasNextInt()) {
+System.out.println("Ugyldigt input!");
+scanner.nextLine();
+continue;
+}
+int choice = scanner.nextInt();
+switch (choice) {
+    case 1:
+        break;
+    case 2:
+        resultatController.registerTraining();
+        break;
+    case 3:
+        resultatController.showMembers();
+        break;
+    case 4:
+        runs = false;
+        break;
+}
+
+        }
+
     }
 }

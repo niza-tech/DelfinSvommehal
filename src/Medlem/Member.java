@@ -1,82 +1,70 @@
 package Medlem;
 
-import java.time.LocalDate;
-import java.time.Period;
-
 public class Member {
             private String name;
-            private LocalDate birthDate;
+            private int age;
             private int memberId;
-            private double subscription;
             private boolean active;
             private boolean restance;
             private boolean konkurrenceSvømmer;
 
-            public Member(String name, LocalDate birthDate, int memberId, boolean active,
+            public Member(String name, int age, int memberId, boolean active,
                           boolean restance, boolean konkurrenceSvømmer) {
                 this.name = name;
-                this.birthDate = birthDate;
+                this.age = age;
                 this.memberId = memberId;
                 this.active = active;
                 this.restance = restance;
                 this.konkurrenceSvømmer = konkurrenceSvømmer;
             }
 
-
-            public String getName() {
+            public String getName(){
                 return name;
             }
 
-            public void setName(String name) {
-                this.name = name;
+            public int getAge(){
+                return age;
             }
 
-            public LocalDate getBirthDate() {
-                return birthDate;
-            }
-
-            public int getAge() {
-                return Period.between(birthDate, LocalDate.now()).getYears();
-            }
-
-            public int getMemberId() {
+            public int getMemberId(){
                 return memberId;
             }
 
-            public void setMemberId(int memberId) {
-                this.memberId = memberId;
-            }
-
-            public boolean isActive() {
+            public boolean getIsActive(){
                 return active;
             }
 
-            public void setActive(boolean active) {
-                this.active = active;
-            }
-            public boolean isRestance() {
+            public boolean getIsRestance(){
                 return restance;
             }
 
-            public void setRestance(boolean restance) {
-                this.restance = restance;
-            }
-
-            public boolean isKonkurrenceSvømmer() {
+            public boolean getIsKonkurrenceSvømmer(){
                 return konkurrenceSvømmer;
             }
 
-            public void setKonkurrenceSvømmer(boolean konkurrenceSvømmer) {
-                this.konkurrenceSvømmer = konkurrenceSvømmer;
+            public void setName(String name){
+                this.name = name;
             }
 
-            public double getSubscription() {
-                return subscription;
-    }
+            public void setAge(int age){
+                this.age = age;
+            }
 
-    public void setSubscription() {
-                this.subscription = subscription;
-    }
+            public void setMemberId(int memberId){
+                this.memberId = memberId;
+            }
+
+            public void setIsActive(boolean active) {
+                this.active = active;
+            }
+
+            public void setIsRestance(boolean restance){
+                this.restance = restance;
+            }
+
+            public void setIsKonkurrenceSvømmer(boolean konkurrenceSvømmer){
+                this.konkurrenceSvømmer = konkurrenceSvømmer;
+            }
 }
 
 
