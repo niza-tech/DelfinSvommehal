@@ -49,6 +49,7 @@ public class menuController {
 
     public static void medlemMenu() {
         Scanner scanner = new Scanner(System.in);
+        medlemController n = new medlemController();
         boolean running = true;
 
 
@@ -71,13 +72,13 @@ public class menuController {
                     medlemController.opretMedlem();
                     break;
                 case 2:
-                    medlemController.fjernMedlem();
+                    medlemController.redigerMedlem();
                     break;
                 case 3:
-                    medlemController.displayMembers();
+                    medlemController.displayMedlem();
                     break;
                 case 4:
-                    medlemController.redigerMedlem();
+                    medlemController.fjernMedlem();
                     break;
                 case 5:
                     running = false;

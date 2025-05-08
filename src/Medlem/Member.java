@@ -8,13 +8,11 @@ public class Member {
             private boolean restance;
             private boolean konkurrenceSvømmer;
 
-            public Member(String name, int age, int memberId, boolean active,
-                          boolean restance, boolean konkurrenceSvømmer) {
+            public Member( int memberId, String name, int age, boolean konkurrenceSvømmer) {
                 this.name = name;
                 this.age = age;
                 this.memberId = memberId;
-                this.active = active;
-                this.restance = restance;
+
                 this.konkurrenceSvømmer = konkurrenceSvømmer;
             }
 
@@ -64,6 +62,14 @@ public class Member {
 
             public void setIsKonkurrenceSvømmer(boolean konkurrenceSvømmer){
                 this.konkurrenceSvømmer = konkurrenceSvømmer;
+            }
+
+            @Override
+    public String toString() {
+                return "ID: " + memberId +
+                        ", Navn: " + name +
+                        ", Alder: " + age +
+                        ", KonkurrenceSvømmer: " + (konkurrenceSvømmer ? "Ja" : "Nej");
             }
 }
 

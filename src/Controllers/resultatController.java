@@ -40,7 +40,7 @@ public class resultatController implements IFileReader {
 
 
 
-        gemResultat(registrering);
+        //gemResultat(registrering);
     }
 
     public static void showMembers() {
