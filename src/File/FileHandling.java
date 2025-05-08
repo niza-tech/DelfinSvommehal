@@ -1,6 +1,7 @@
 package File;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileHandling {
@@ -15,6 +16,18 @@ public class FileHandling {
         } catch (IOException e) {
             System.out.println("An error occurred");
             //noinspection CallToPrintStackTrace
+            e.printStackTrace();
+        }
+    }
+
+    public static void gemResultat(String registrering){
+        try {
+            FileWriter writer = new FileWriter("resultater.txt", true);
+            writer.write(registrering + "\n");
+            writer.close();
+            System.out.println("Resultat blev gemt!");
+        } catch (IOException e) {
+            System.out.println("Der opstod en fejl ved filskrivning.");
             e.printStackTrace();
         }
     }

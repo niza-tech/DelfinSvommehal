@@ -119,8 +119,8 @@ switch (choice){
         Scanner scanner = new Scanner(System.in);
         boolean sprint = true;
         while (sprint) {
-            System.out.println("1. Trænin ");
-            System.out.println("2. Stævne ");
+            System.out.println("1. Træning ");
+            System.out.println("2. Registrér konkurrencesvømmer ");
             System.out.println("3. Tilbage ");
 
             if (!scanner.hasNextInt()) {
