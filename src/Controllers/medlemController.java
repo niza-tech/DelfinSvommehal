@@ -27,9 +27,9 @@ public class medlemController implements IDisplay {
         System.out.print("Navn og efternavn på nyt medlem: ");
         String navn = scanner.nextLine();
 
-        System.out.print("Fødselsdato på nyt medlem (dd/mm/yyyy): ");
+        System.out.print("Fødselsdato på nyt medlem (dd/MM/yyyy): ");
         String birthDateString = scanner.nextLine();
-        LocalDate birthDate = LocalDate.parse(birthDateString, DateTimeFormatter.ofPattern("dd/mm/yyyy"));
+        LocalDate birthDate = LocalDate.parse(birthDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         System.out.println("Er den nye medlem en konkurrencesvømmer? (true/false): ");
         boolean konkurrenceSvømmer = scanner.nextBoolean();
