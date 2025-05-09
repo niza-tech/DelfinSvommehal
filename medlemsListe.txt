@@ -1,1 +1,0 @@
-1;Luka Terkelsen;60;true;true;Butterfly;SENIOR_OVER60

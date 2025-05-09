@@ -104,10 +104,8 @@ continue;
 int choice = scanner.nextInt();
 switch (choice){
     case 1:
-        kont.display();
         break;
     case 2:
-        kontController.showRestance();
         break;
     case 3:
         u = false;

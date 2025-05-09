@@ -1,21 +1,22 @@
 package Medlem;
 
 import java.util.ArrayList;
-import Medlem.Medlemskab;
+import java.time.Period;
+import java.time.LocalDate;
 
 public class Member {
     private String name;
     private ArrayList<String> svømmeDisciplin;
-    private int age;
+    private LocalDate birthDate;
     private int memberId;
     private boolean active;
     private boolean restance;
     private boolean konkurrenceSvømmer;
     private Medlem.Medlemskab medlemskab; // Added membership type
 
-    public Member(int memberId, String name, int age, boolean konkurrenceSvømmer, boolean active, ArrayList<String> svømmeDisciplin, Medlem.Medlemskab medlemskab) {
+    public Member(int memberId, String name, LocalDate birthDate, boolean konkurrenceSvømmer, boolean active, ArrayList<String> svømmeDisciplin, Medlem.Medlemskab medlemskab) {
         this.name = name;
-        this.age = age;
+        this.birthDate = birthDate;
         this.memberId = memberId;
         this.konkurrenceSvømmer = konkurrenceSvømmer;
         this.active = active;
@@ -32,7 +33,7 @@ public class Member {
             }
 
             public int getAge(){
-                return age;
+                return Period.between(birthDate, LocalDate.now()).getYears();
             }
 
             public int getMemberId(){
@@ -63,8 +64,8 @@ public class Member {
                 this.svømmeDisciplin = Svømmediscipliner;
             }
 
-            public void setAge(int age){
-                this.age = age;
+            public void setBirthDate(LocalDate birthDate) {
+                this.birthDate = birthDate;
             }
 
             public void setMemberId(int memberId){
@@ -91,7 +92,7 @@ public class Member {
     public String toString() {
                 return "ID: " + memberId +
                         ", Navn: " + name +
-                        ", Alder: " + age +
+                        ", Alder: " + getAge() +
                         ", KonkurrenceSvømmer: " + (konkurrenceSvømmer ? "Ja" : "Nej") +
                         ", Medlemskab: " + medlemskab;
             }

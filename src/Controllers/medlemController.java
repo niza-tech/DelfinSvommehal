@@ -2,7 +2,7 @@ package Controllers;
 
 import Medlem.Medlemskab;
 import Medlem.Member;
-import Medlem.Member;
+
 import File.IDisplay;
 import java.io.File;
 import java.io.PrintWriter;
@@ -11,6 +11,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class medlemController implements IDisplay {
     private static ArrayList<Member> members = new ArrayList<>();
@@ -25,8 +27,9 @@ public class medlemController implements IDisplay {
         System.out.print("Navn og efternavn på nyt medlem: ");
         String navn = scanner.nextLine();
 
-        System.out.print("Alder på nyt medlem: ");
-        int age = scanner.nextInt();
+        System.out.print("Fødselsdato på nyt medlem (dd/mm/yyyy): ");
+        String birthDateString = scanner.nextLine();
+        LocalDate birthDate = LocalDate.parse(birthDateString, DateTimeFormatter.ofPattern("dd/mm/yyyy"));
 
         System.out.println("Er den nye medlem en konkurrencesvømmer? (true/false): ");
         boolean konkurrenceSvømmer = scanner.nextBoolean();
@@ -70,9 +73,9 @@ public class medlemController implements IDisplay {
 
         int newMedlemId = findLowestAvailableId();
 
-        Medlemskab medlemskab = determineMedlemskab(age);
+        Medlemskab medlemskab = determineMedlemskab(birthDate);
 
-        Member newMember = new Member(newMedlemId, navn, age, konkurrenceSvømmer, active, svømmeDiscipliner, medlemskab);
+        Member newMember = new Member(newMedlemId, navn, birthDate, konkurrenceSvømmer, active, svømmeDiscipliner, medlemskab);
 
         members.add(newMember);
 
@@ -174,16 +177,6 @@ public class medlemController implements IDisplay {
             memberToEdit.setName(nytNavn);
         }
 
-        System.out.println("Ny alder? (ENTER for at behold \"" + memberToEdit.getAge() + "\"): ");
-        String newAge = scanner.nextLine();
-        if (!newAge.isBlank()) {
-            try {
-                int nyAlder = Integer.parseInt(newAge);
-                memberToEdit.setAge(nyAlder);
-            } catch (NumberFormatException e) {
-                System.out.println("Ugyldigt alder. Beholder eksisterende.");
-            }
-        }
         System.out.println("Er medlemmeren en konkurrencesvømmer? (true/false, ENTER for at behold \"" + memberToEdit.getName() + "\"): ");
         String konkurrenceInput = scanner.nextLine();
         if (!konkurrenceInput.isBlank()) {
@@ -242,7 +235,8 @@ public class medlemController implements IDisplay {
         System.out.println("Medlem er nu redigeret: " + memberToEdit);
     }
 
-    private static Medlemskab determineMedlemskab(int age) {
+    private static Medlemskab determineMedlemskab(LocalDate birthDate) {
+        int age = LocalDate.now().getYear() - birthDate.getYear();
         if (age < 18) {
             return Medlemskab.JUNIOR;
         } else if (age >= 18 && age < 60) {
@@ -278,7 +272,7 @@ public class medlemController implements IDisplay {
                 if (parts.length == 7) {
                     int medlemId = Integer.parseInt(parts[0]);
                     String navn = parts[1];
-                    int age = Integer.parseInt(parts[2]);
+                    LocalDate birthDate = LocalDate.parse(parts[2]);
                     boolean konkurrenceSvømmer = Boolean.parseBoolean(parts[3]);
                     boolean active = Boolean.parseBoolean(parts[4]);
                     ArrayList<String> discipliner = new ArrayList<>();
@@ -289,7 +283,7 @@ public class medlemController implements IDisplay {
                         }
                     }
                     Medlemskab medlemskab = Medlemskab.valueOf(parts[6]);
-                    members.add(new Member(medlemId, navn, age, konkurrenceSvømmer, active, discipliner, medlemskab));
+                    members.add(new Member(medlemId, navn, birthDate, konkurrenceSvømmer, active, discipliner, medlemskab));
                 }
             }
             System.out.println("Medlems liste indlæst fra fil.");
