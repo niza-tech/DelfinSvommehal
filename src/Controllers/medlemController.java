@@ -6,6 +6,7 @@ import Medlem.Member;
 import File.IDisplay;
 import java.io.File;
 import java.io.PrintWriter;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -73,7 +74,7 @@ public class medlemController implements IDisplay {
 
         int newMedlemId = findLowestAvailableId();
 
-        Medlemskab medlemskab = determineMedlemskab(birthDate);
+        Medlemskab medlemskab = determineMedlemskab(birthDate, active);
 
         Member newMember = new Member(newMedlemId, navn, birthDate, konkurrenceSvømmer, active, svømmeDiscipliner, medlemskab);
 
@@ -235,8 +236,16 @@ public class medlemController implements IDisplay {
         System.out.println("Medlem er nu redigeret: " + memberToEdit);
     }
 
-    private static Medlemskab determineMedlemskab(LocalDate birthDate) {
+    private static Medlemskab determineMedlemskab(LocalDate birthDate, boolean isActive) {
+
+        if (!isActive) {
+            return Medlemskab.PASSIV;
+        }
+
         int age = LocalDate.now().getYear() - birthDate.getYear();
+        if (birthDate.isAfter(LocalDate.now().withYear(LocalDate.now().getYear()).minusYears(age))) {
+            age--;
+        }
         if (age < 18) {
             return Medlemskab.JUNIOR;
         } else if (age >= 18 && age < 60) {
@@ -265,6 +274,7 @@ public class medlemController implements IDisplay {
 
         if (file.exists()) {
             try (Scanner scanner = new Scanner(file)) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(";");
@@ -272,7 +282,8 @@ public class medlemController implements IDisplay {
                 if (parts.length == 7) {
                     int medlemId = Integer.parseInt(parts[0]);
                     String navn = parts[1];
-                    LocalDate birthDate = LocalDate.parse(parts[2]);
+                    try {
+                    LocalDate birthDate = LocalDate.parse(parts[2], formatter);
                     boolean konkurrenceSvømmer = Boolean.parseBoolean(parts[3]);
                     boolean active = Boolean.parseBoolean(parts[4]);
                     ArrayList<String> discipliner = new ArrayList<>();
@@ -284,6 +295,9 @@ public class medlemController implements IDisplay {
                     }
                     Medlemskab medlemskab = Medlemskab.valueOf(parts[6]);
                     members.add(new Member(medlemId, navn, birthDate, konkurrenceSvømmer, active, discipliner, medlemskab));
+                } catch (DateTimeException e) {
+                        System.out.println("Forkert dato format for medlem: " + navn);
+                    }
                 }
             }
             System.out.println("Medlems liste indlæst fra fil.");

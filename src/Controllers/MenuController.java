@@ -91,7 +91,7 @@ public class MenuController {
         kontController kont = new kontController();
         boolean u = true;
         while (u) {
-System.out.println("1. Vis kontingent ");
+System.out.println("1. Vis kontingent for året");
 System.out.println("2. Vis Vis restance ");
 System.out.println("3. Tilbage ");
 
@@ -104,6 +104,7 @@ continue;
 int choice = scanner.nextInt();
 switch (choice){
     case 1:
+        kontController.displayYearly();
         break;
     case 2:
         break;
