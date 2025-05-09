@@ -72,8 +72,3 @@ public class Member {
                         ", KonkurrenceSvømmer: " + (konkurrenceSvømmer ? "Ja" : "Nej");
             }
 }
-
-
-
-
-
