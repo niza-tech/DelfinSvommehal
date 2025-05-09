@@ -1,1 +1,1 @@
-1;Luka Terkelsen;21;true;true;Butterfly,Crawl,Rygcrawl,Brystsvømning
+1;Luka Terkelsen;60;true;true;Butterfly;SENIOR_OVER60

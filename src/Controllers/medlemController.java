@@ -1,7 +1,8 @@
 package Controllers;
 
+import Medlem.Medlemskab;
 import Medlem.Member;
-
+import Medlem.Member;
 import File.IDisplay;
 import java.io.File;
 import java.io.PrintWriter;
@@ -69,7 +70,9 @@ public class medlemController implements IDisplay {
 
         int newMedlemId = findLowestAvailableId();
 
-        Member newMember = new Member(newMedlemId, navn, age, konkurrenceSvømmer, active, svømmeDiscipliner);
+        Medlemskab medlemskab = determineMedlemskab(age);
+
+        Member newMember = new Member(newMedlemId, navn, age, konkurrenceSvømmer, active, svømmeDiscipliner, medlemskab);
 
         members.add(newMember);
 
@@ -239,11 +242,23 @@ public class medlemController implements IDisplay {
         System.out.println("Medlem er nu redigeret: " + memberToEdit);
     }
 
+    private static Medlemskab determineMedlemskab(int age) {
+        if (age < 18) {
+            return Medlemskab.JUNIOR;
+        } else if (age >= 18 && age < 60) {
+            return Medlemskab.SENIOR;
+        } else {
+            return Medlemskab.SENIOR_OVER60;
+        }
+    }
+
     public static void saveMemberToFile() {
 
         try(PrintWriter writer = new PrintWriter(new File("medlemsListe.txt"))) {
             for (Member member : members) {
-                writer.println(member.getMemberId() + ";" + member.getName() + ";" + member.getAge() + ";" + member.getIsKonkurrenceSvømmer() + ";" + member.getIsActive() + ";" + String.join(",", member.getSvømmeDisciplin()));
+                writer.println(member.getMemberId() + ";" + member.getName() + ";" + member.getAge() + ";" +
+                        member.getIsKonkurrenceSvømmer() + ";" + member.getIsActive() + ";" +
+                        String.join(",", member.getSvømmeDisciplin()) + ";" + member.getMedlemskab());
             }
             System.out.println("Listen er nu opdateret.");
         } catch (FileNotFoundException e) {
@@ -260,7 +275,7 @@ public class medlemController implements IDisplay {
                 String line = scanner.nextLine();
                 String[] parts = line.split(";");
 
-                if (parts.length <= 4) {
+                if (parts.length == 7) {
                     int medlemId = Integer.parseInt(parts[0]);
                     String navn = parts[1];
                     int age = Integer.parseInt(parts[2]);
@@ -273,7 +288,8 @@ public class medlemController implements IDisplay {
                             discipliner.add(d);
                         }
                     }
-                    members.add(new Member(medlemId, navn, age, konkurrenceSvømmer, active, discipliner));
+                    Medlemskab medlemskab = Medlemskab.valueOf(parts[6]);
+                    members.add(new Member(medlemId, navn, age, konkurrenceSvømmer, active, discipliner, medlemskab));
                 }
             }
             System.out.println("Medlems liste indlæst fra fil.");

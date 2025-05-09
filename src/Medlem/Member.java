@@ -1,24 +1,27 @@
 package Medlem;
 
 import java.util.ArrayList;
+import Medlem.Medlemskab;
 
 public class Member {
-            private String name;
-            private ArrayList <String> svømmeDisciplin;
-            private int age;
-            private int memberId;
-            private boolean active;
-            private boolean restance;
-            private boolean konkurrenceSvømmer;
+    private String name;
+    private ArrayList<String> svømmeDisciplin;
+    private int age;
+    private int memberId;
+    private boolean active;
+    private boolean restance;
+    private boolean konkurrenceSvømmer;
+    private Medlem.Medlemskab medlemskab; // Added membership type
 
-            public Member( int memberId, String name, int age, boolean konkurrenceSvømmer, boolean active, ArrayList<String> svømmeDisciplin) {
-                this.name = name;
-                this.age = age;
-                this.memberId = memberId;
-                this.konkurrenceSvømmer = konkurrenceSvømmer;
-                this.active = active;
-                this.svømmeDisciplin = svømmeDisciplin;
-            }
+    public Member(int memberId, String name, int age, boolean konkurrenceSvømmer, boolean active, ArrayList<String> svømmeDisciplin, Medlem.Medlemskab medlemskab) {
+        this.name = name;
+        this.age = age;
+        this.memberId = memberId;
+        this.konkurrenceSvømmer = konkurrenceSvømmer;
+        this.active = active;
+        this.svømmeDisciplin = svømmeDisciplin;
+        this.medlemskab = medlemskab; // Assign membership
+    }
 
             public String getName(){
                 return name;
@@ -48,7 +51,11 @@ public class Member {
                 return konkurrenceSvømmer;
             }
 
-            public void setName(String name){
+    public Medlem.Medlemskab getMedlemskab() {
+        return medlemskab;
+    }
+
+    public void setName(String name){
                 this.name = name;
             }
 
@@ -76,11 +83,16 @@ public class Member {
                 this.konkurrenceSvømmer = konkurrenceSvømmer;
             }
 
+            public void setMedlemskab(Medlem.Medlemskab medlemskab) {
+        this.medlemskab = medlemskab;
+            }
+
             @Override
     public String toString() {
                 return "ID: " + memberId +
                         ", Navn: " + name +
                         ", Alder: " + age +
-                        ", KonkurrenceSvømmer: " + (konkurrenceSvømmer ? "Ja" : "Nej");
+                        ", KonkurrenceSvømmer: " + (konkurrenceSvømmer ? "Ja" : "Nej") +
+                        ", Medlemskab: " + medlemskab;
             }
 }

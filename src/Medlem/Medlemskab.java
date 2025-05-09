@@ -1,3 +1,5 @@
+package Medlem;
+
 public enum Medlemskab {
     JUNIOR,
     SENIOR,
