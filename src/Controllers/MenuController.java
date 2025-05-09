@@ -2,8 +2,8 @@ package Controllers;
 
 import java.util.Scanner;
 
-public class menuController {
-    public static void mainMenu() {
+public class MenuController {
+    public void mainMenu() {
 
         Scanner scanner = new Scanner(System.in);
         boolean y = true;
@@ -22,13 +22,13 @@ public class menuController {
 
             switch (choice) {
                 case 1:
-                    menuController.medlemMenu();
+                    medlemMenu();
                     break;
                 case 2:
-                    menuController.kontingentMenu();
+                    kontingentMenu();
                     break;
                 case 3:
-                    menuController.statistikMenu();
+                    statistikMenu();
                     break;
                 case 4:
                     y = false;
@@ -47,7 +47,7 @@ public class menuController {
                         """;
     }
 
-    public static void medlemMenu() {
+    public void medlemMenu() {
         Scanner scanner = new Scanner(System.in);
         medlemController n = new medlemController();
         boolean running = true;
@@ -75,7 +75,7 @@ public class menuController {
                     medlemController.redigerMedlem();
                     break;
                 case 3:
-                    medlemController.displayMedlem();
+                    n.display();
                     break;
                 case 4:
                     medlemController.fjernMedlem();
@@ -104,7 +104,7 @@ continue;
 int choice = scanner.nextInt();
 switch (choice){
     case 1:
-        kont.fileReader();
+        kont.display();
         break;
     case 2:
         kontController.showRestance();
@@ -132,7 +132,7 @@ switch (choice){
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    menuController.trainingMenu();
+                    MenuController.trainingMenu();
                     break;
                 case 2:
                     resultatController.Competition();
@@ -162,7 +162,7 @@ continue;
 int choice = scanner.nextInt();
 switch (choice) {
     case 1:
-        resultat.fileReader();
+        resultat.display();
         break;
     case 2:
         resultatController.registerTraining();

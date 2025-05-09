@@ -1,14 +1,11 @@
 package Controllers;
 
-import File.IFileReader;
+import File.IDisplay;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-import static File.FileHandling.gemResultat;
-
-public class resultatController implements IFileReader {
+public class resultatController implements IDisplay {
 
 
     public static void Competition() {
@@ -34,7 +31,7 @@ public class resultatController implements IFileReader {
 
         System.out.println("Registrering gennemført!\n");
 
-        menuController.statistikMenu();
+        MenuController.statistikMenu();
 
 
     }
@@ -59,7 +56,7 @@ public class resultatController implements IFileReader {
 
         System.out.println("Registrering gennemført!\n");
 
-        menuController.statistikMenu();
+        MenuController.statistikMenu();
 
     }
 
@@ -67,7 +64,7 @@ public class resultatController implements IFileReader {
     }
 
     @Override
-    public void fileReader() {
+    public void display() {
 
     }
 }

@@ -2,9 +2,8 @@ package Controllers;
 
 import Medlem.Member;
 
-import File.IFileReader;
+import File.IDisplay;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-public class medlemController {
+public class medlemController implements IDisplay {
     private static ArrayList<Member> members = new ArrayList<>();
 
     public static List<Member> getMemberList(){
@@ -32,9 +31,45 @@ public class medlemController {
         boolean konkurrenceSvømmer = scanner.nextBoolean();
         scanner.nextLine();
 
+        System.out.println("Er den nye medlem aktiv? (true/false): ");
+        boolean active = scanner.nextBoolean();
+        scanner.nextLine();
+
+        ArrayList<String> svømmeDiscipliner = new ArrayList<>();
+
+        if(konkurrenceSvømmer) {
+            System.out.println("Vælg en eller flere discipliner (indtast nurme adskilt med mellemrum): ");
+            System.out.println("1. Butterfly");
+            System.out.println("2. Crawl");
+            System.out.println("3. Rygcrawl");
+            System.out.println("4. Brystsvømning");
+            System.out.println("Dine valg: ");
+            String input = scanner.nextLine();
+            String[] valg = input.split(" ");
+
+            for (String v : valg) {
+                switch(v) {
+                    case "1":
+                        svømmeDiscipliner.add("Butterfly");
+                        break;
+                    case "2":
+                        svømmeDiscipliner.add("Crawl");
+                        break;
+                    case "3":
+                        svømmeDiscipliner.add("Rygcrawl");
+                        break;
+                    case "4":
+                        svømmeDiscipliner.add("Brystsvømning");
+                        break;
+                    default:
+                        System.out.println("Ugyldig valg: " + v);
+                }
+            }
+        }
+
         int newMedlemId = findLowestAvailableId();
 
-        Member newMember = new Member(newMedlemId, navn, age, konkurrenceSvømmer);
+        Member newMember = new Member(newMedlemId, navn, age, konkurrenceSvømmer, active, svømmeDiscipliner);
 
         members.add(newMember);
 
@@ -96,40 +131,6 @@ public class medlemController {
         }
     }
 
-    public static void displayMedlem() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Hvordan vil du sortere medlemmerne?");
-        System.out.println("1: Efter ID");
-        System.out.println("2: Efter navn");
-        System.out.println("3: Efter alder");
-        System.out.println("Indtast valg (1-3)");
-
-        int valg = scanner.nextInt();
-        scanner.nextLine();
-        switch (valg) {
-            case 1:
-                members.sort(Comparator.comparingInt(Member::getMemberId));
-                break;
-            case 2:
-                members.sort(Comparator.comparing(Member::getName, String.CASE_INSENSITIVE_ORDER));
-                break;
-            case 3:
-                members.sort(Comparator.comparingInt(Member::getAge));
-                break;
-                default:
-                    System.out.println("Ugyldigt valg. Viser listen uden sortering.");
-        }
-
-        if (members.isEmpty()) {
-            System.out.println("Der er ingen medlemmer i systemet.");
-        } else {
-            System.out.println("\nMedlemsliste: ");
-            for (Member m : members) {
-                System.out.println(m);
-            }
-        }
-    }
 
     public static void redigerMedlem() {
         Scanner scanner = new Scanner(System.in);
@@ -189,6 +190,50 @@ public class medlemController {
                 System.out.println("Ugyldigt input. Beholder eksisterende.");
             }
         }
+        System.out.println("Er medlemmeren aktiv? (true/false, ENTER for at behold \"" + memberToEdit.getIsActive() + "\")");
+        String aktivInput = scanner.nextLine();
+        if (!aktivInput.isBlank()) {
+            if (aktivInput.equalsIgnoreCase("true")||aktivInput.equalsIgnoreCase("false")) {
+                memberToEdit.setIsActive(Boolean.parseBoolean(aktivInput));
+            } else {
+                System.out.println("Ugyldigt input. Beholder eksisterende.");
+            }
+        }
+        if (memberToEdit.getIsKonkurrenceSvømmer()) {
+            System.out.println("Vil du ændre svømmedisciplinerne? (y/n)");
+            String disciplinInput = scanner.nextLine();
+            if (disciplinInput.equalsIgnoreCase("y")) {
+                ArrayList<String> nyeDiscipliner = new ArrayList<>();
+                System.out.println("Vælg en eller flere discipliner (indstant numre adskilt med mellemrum): ");
+                System.out.println("1. Butterfly");
+                System.out.println("2. Crawl");
+                System.out.println("3. Rygcrawl");
+                System.out.println("4. Brystsvømning");
+                System.out.println("Dine valg: ");
+                String disciplinValg = scanner.nextLine();
+                String[] valg = disciplinValg.split(" ");
+
+                for (String v : valg) {
+                    switch (v) {
+                        case "1":
+                            nyeDiscipliner.add("Butterfly");
+                            break;
+                        case "2":
+                            nyeDiscipliner.add("Crawl");
+                            break;
+                        case "3":
+                            nyeDiscipliner.add("Rygcrawl");
+                            break;
+                        case "4":
+                            nyeDiscipliner.add("Brystsvømning");
+                            break;
+                        default:
+                            System.out.println("Ugyldigt valg: " + v);
+                    }
+                }
+                memberToEdit.setSvømmeDisciplin(nyeDiscipliner);
+            }
+        }
 
         saveMemberToFile();
         System.out.println("Medlem er nu redigeret: " + memberToEdit);
@@ -198,7 +243,7 @@ public class medlemController {
 
         try(PrintWriter writer = new PrintWriter(new File("medlemsListe.txt"))) {
             for (Member member : members) {
-                writer.println(member.getMemberId() + ";" + member.getName() + ";" + member.getAge() + ";" + member.getIsKonkurrenceSvømmer());
+                writer.println(member.getMemberId() + ";" + member.getName() + ";" + member.getAge() + ";" + member.getIsKonkurrenceSvømmer() + ";" + member.getIsActive() + ";" + String.join(",", member.getSvømmeDisciplin()));
             }
             System.out.println("Listen er nu opdateret.");
         } catch (FileNotFoundException e) {
@@ -220,7 +265,15 @@ public class medlemController {
                     String navn = parts[1];
                     int age = Integer.parseInt(parts[2]);
                     boolean konkurrenceSvømmer = Boolean.parseBoolean(parts[3]);
-                    members.add(new Member(medlemId, navn, age, konkurrenceSvømmer));
+                    boolean active = Boolean.parseBoolean(parts[4]);
+                    ArrayList<String> discipliner = new ArrayList<>();
+                    if (!parts[5].isEmpty()) {
+                        String[] disciplinArray = parts[5].split(",");
+                        for (String d : disciplinArray) {
+                            discipliner.add(d);
+                        }
+                    }
+                    members.add(new Member(medlemId, navn, age, konkurrenceSvømmer, active, discipliner));
                 }
             }
             System.out.println("Medlems liste indlæst fra fil.");
@@ -229,6 +282,42 @@ public class medlemController {
             }
         } else {
             System.out.println("Medlems liste kunne ikke findes.");
+        }
+    }
+
+    @Override
+    public void display(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Hvordan vil du sortere medlemmerne?");
+        System.out.println("1: Efter ID");
+        System.out.println("2: Efter navn");
+        System.out.println("3: Efter alder");
+        System.out.println("Indtast valg (1-3)");
+
+        int valg = scanner.nextInt();
+        scanner.nextLine();
+        switch (valg) {
+            case 1:
+                members.sort(Comparator.comparingInt(Member::getMemberId));
+                break;
+            case 2:
+                members.sort(Comparator.comparing(Member::getName, String.CASE_INSENSITIVE_ORDER));
+                break;
+            case 3:
+                members.sort(Comparator.comparingInt(Member::getAge));
+                break;
+            default:
+                System.out.println("Ugyldigt valg. Viser listen uden sortering.");
+        }
+
+        if (members.isEmpty()) {
+            System.out.println("Der er ingen medlemmer i systemet.");
+        } else {
+            System.out.println("\nMedlemsliste: ");
+            for (Member m : members) {
+                System.out.println(m);
+            }
         }
     }
 }

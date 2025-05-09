@@ -1,7 +1,1 @@
-1;Jihad;22;false
-2;Mikkel;24;true
-4;Markus;22;false
-5;Bastian;20;true
-6;Terry;16;false
-7;Julius;21;false
-3;Jakob;27;true
+1;Luka Terkelsen;21;true;true;Butterfly,Crawl,Rygcrawl,Brystsvømning

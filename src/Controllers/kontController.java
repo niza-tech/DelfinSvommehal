@@ -1,14 +1,14 @@
 package Controllers;
 
-import File.IFileReader;
+import File.IDisplay;
 
-public class kontController implements IFileReader {
+public class kontController implements IDisplay {
     public static void showRestance() {
 
     }
 
-
-    public void fileReader() {
+@Override
+    public void display() {
 
     }
 }
