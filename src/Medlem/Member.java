@@ -1,29 +1,39 @@
 package Medlem;
 
-public class Member {
-            private String name;
-            private int age;
-            private int memberId;
-            private boolean active;
-            private boolean restance;
-            private boolean konkurrenceSvømmer;
+import java.util.ArrayList;
+import java.time.Period;
+import java.time.LocalDate;
 
-            public Member(String name, int age, int memberId, boolean active,
-                          boolean restance, boolean konkurrenceSvømmer) {
-                this.name = name;
-                this.age = age;
-                this.memberId = memberId;
-                this.active = active;
-                this.restance = restance;
-                this.konkurrenceSvømmer = konkurrenceSvømmer;
-            }
+public class Member {
+    private String name;
+    private ArrayList<String> svømmeDisciplin;
+    private LocalDate birthDate;
+    private int memberId;
+    private boolean active;
+    private boolean restance;
+    private boolean konkurrenceSvømmer;
+    private Medlem.Medlemskab medlemskab; // Added membership type
+
+    public Member(int memberId, String name, LocalDate birthDate, boolean konkurrenceSvømmer, boolean active, ArrayList<String> svømmeDisciplin, Medlem.Medlemskab medlemskab) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.memberId = memberId;
+        this.konkurrenceSvømmer = konkurrenceSvømmer;
+        this.active = active;
+        this.svømmeDisciplin = svømmeDisciplin;
+        this.medlemskab = medlemskab; // Assign membership
+    }
 
             public String getName(){
                 return name;
             }
 
+            public ArrayList<String> getSvømmeDisciplin() {
+                return svømmeDisciplin;
+            }
+
             public int getAge(){
-                return age;
+                return Period.between(birthDate, LocalDate.now()).getYears();
             }
 
             public int getMemberId(){
@@ -42,12 +52,20 @@ public class Member {
                 return konkurrenceSvømmer;
             }
 
-            public void setName(String name){
+    public Medlem.Medlemskab getMedlemskab() {
+        return medlemskab;
+    }
+
+    public void setName(String name){
                 this.name = name;
             }
 
-            public void setAge(int age){
-                this.age = age;
+            public void setSvømmeDisciplin(ArrayList <String> Svømmediscipliner) {
+                this.svømmeDisciplin = Svømmediscipliner;
+            }
+
+            public void setBirthDate(LocalDate birthDate) {
+                this.birthDate = birthDate;
             }
 
             public void setMemberId(int memberId){
@@ -65,9 +83,17 @@ public class Member {
             public void setIsKonkurrenceSvømmer(boolean konkurrenceSvømmer){
                 this.konkurrenceSvømmer = konkurrenceSvømmer;
             }
+
+            public void setMedlemskab(Medlem.Medlemskab medlemskab) {
+        this.medlemskab = medlemskab;
+            }
+
+            @Override
+    public String toString() {
+                return "ID: " + memberId +
+                        ", Navn: " + name +
+                        ", Alder: " + getAge() +
+                        ", KonkurrenceSvømmer: " + (konkurrenceSvømmer ? "Ja" : "Nej") +
+                        ", Medlemskab: " + medlemskab;
+            }
 }
-
-
-
-
-

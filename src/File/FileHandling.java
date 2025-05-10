@@ -31,4 +31,15 @@ public class FileHandling {
             e.printStackTrace();
         }
     }
+
+    public static void writeToFile(String path, String tekstTilFil){
+        try {
+            FileWriter myWriter = new FileWriter(path, true);
+            myWriter.write(tekstTilFil);
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred");
+            e.printStackTrace();
+        }
+    }
 }
