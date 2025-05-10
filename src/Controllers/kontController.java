@@ -58,4 +58,41 @@ public class kontController {
         double yearIncome = calculateYearly();
         System.out.println("Forventet indtægt (årligt): " + yearIncome);
     }
+
+    public static void displayRestance(){
+        File file = new File("medlemsListe.txt");
+
+        if (!file.exists()) {
+            System.out.println("Filen blev ikke fundet.");
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
+            System.out.println("Medlemmer i restance: ");
+            boolean found = false;
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(";");
+
+                if (parts.length >= 7) {
+                    boolean isRestance = Boolean.parseBoolean(parts[5]);
+
+                    if (isRestance) {
+                        found = true;
+                        System.out.println("ID: " + parts[0] +
+                                ", Navn: " + parts[1] +
+                                ", Fødselsdato: " + parts[2] +
+                                ", Medlemskab: " + parts[6]);
+                    }
+                }
+            }
+
+            if (!found) {
+                System.out.println("Ingen medlemmer er i restance.");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Kunne ikke læse medlemsliste.txt");
+        }
+    }
 }

@@ -1,4 +1,2 @@
-1;Julius Ring;21;false;false;;PASSIV
-2;Luka Terkelsen;10;true;true;Butterfly;JUNIOR
-3;Sofie Guldberg;64;true;true;Crawl,Brystsvømning;SENIOR_OVER60
-4;Mario Luigi;25;true;true;Rygcrawl;SENIOR
+1;Test;24;true;true;true;Butterfly,Crawl;SENIOR
+2;test2;23;false;false;false;;PASSIV

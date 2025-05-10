@@ -14,12 +14,13 @@ public class Member {
     private boolean konkurrenceSvømmer;
     private Medlem.Medlemskab medlemskab; // Added membership type
 
-    public Member(int memberId, String name, LocalDate birthDate, boolean konkurrenceSvømmer, boolean active, ArrayList<String> svømmeDisciplin, Medlem.Medlemskab medlemskab) {
+    public Member(int memberId, String name, LocalDate birthDate, boolean konkurrenceSvømmer, boolean active, boolean restance, ArrayList<String> svømmeDisciplin, Medlem.Medlemskab medlemskab) {
         this.name = name;
         this.birthDate = birthDate;
         this.memberId = memberId;
         this.konkurrenceSvømmer = konkurrenceSvømmer;
         this.active = active;
+        this.restance = restance;
         this.svømmeDisciplin = svømmeDisciplin;
         this.medlemskab = medlemskab; // Assign membership
     }

@@ -1,5 +1,8 @@
 package Controllers;
 
+import Medlem.Medlemskab;
+import Medlem.Member;
+
 import java.util.Scanner;
 
 public class MenuController {
@@ -92,7 +95,7 @@ public class MenuController {
         boolean u = true;
         while (u) {
 System.out.println("1. Vis kontingent for året");
-System.out.println("2. Vis Vis restance ");
+System.out.println("2. Vis restance ");
 System.out.println("3. Tilbage ");
 
 if (!scanner.hasNextInt()) {
@@ -107,6 +110,7 @@ switch (choice){
         kontController.displayYearly();
         break;
     case 2:
+        kontController.displayRestance();
         break;
     case 3:
         u = false;

@@ -40,6 +40,10 @@ public class medlemController implements IDisplay {
         boolean active = scanner.nextBoolean();
         scanner.nextLine();
 
+        System.out.println("Er medlemmet i restance? (true/false): ");
+        boolean restance = scanner.nextBoolean();
+        scanner.nextLine();
+
         ArrayList<String> svømmeDiscipliner = new ArrayList<>();
 
         if(konkurrenceSvømmer) {
@@ -76,7 +80,7 @@ public class medlemController implements IDisplay {
 
         Medlemskab medlemskab = determineMedlemskab(birthDate, active);
 
-        Member newMember = new Member(newMedlemId, navn, birthDate, konkurrenceSvømmer, active, svømmeDiscipliner, medlemskab);
+        Member newMember = new Member(newMedlemId, navn, birthDate, konkurrenceSvømmer, active, restance, svømmeDiscipliner, medlemskab);
 
         members.add(newMember);
 
@@ -178,6 +182,16 @@ public class medlemController implements IDisplay {
             memberToEdit.setName(nytNavn);
         }
 
+        System.out.println("Er medlemmet i restance? (true/false, ENTER for at beholde \"" + memberToEdit.getIsRestance() + "\")");
+        String restanceInput = scanner.nextLine();
+        if (!restanceInput.isBlank()) {
+            if (restanceInput.equalsIgnoreCase("true") || restanceInput.equalsIgnoreCase("false")) {
+                memberToEdit.setIsRestance(Boolean.parseBoolean(restanceInput));
+            } else {
+                System.out.println("Ugyldigt input. Beholder eksisterende.");
+            }
+        }
+
         System.out.println("Er medlemmeren en konkurrencesvømmer? (true/false, ENTER for at behold \"" + memberToEdit.getName() + "\"): ");
         String konkurrenceInput = scanner.nextLine();
         if (!konkurrenceInput.isBlank()) {
@@ -261,6 +275,7 @@ public class medlemController implements IDisplay {
             for (Member member : members) {
                 writer.println(member.getMemberId() + ";" + member.getName() + ";" + member.getAge() + ";" +
                         member.getIsKonkurrenceSvømmer() + ";" + member.getIsActive() + ";" +
+                        member.getIsRestance() + ";" +
                         String.join(",", member.getSvømmeDisciplin()) + ";" + member.getMedlemskab());
             }
             System.out.println("Listen er nu opdateret.");
@@ -279,22 +294,23 @@ public class medlemController implements IDisplay {
                 String line = scanner.nextLine();
                 String[] parts = line.split(";");
 
-                if (parts.length == 7) {
+                if (parts.length >= 8) {
                     int medlemId = Integer.parseInt(parts[0]);
                     String navn = parts[1];
                     try {
                     LocalDate birthDate = LocalDate.parse(parts[2], formatter);
                     boolean konkurrenceSvømmer = Boolean.parseBoolean(parts[3]);
                     boolean active = Boolean.parseBoolean(parts[4]);
+                    boolean restance = Boolean.parseBoolean(parts[5]);
                     ArrayList<String> discipliner = new ArrayList<>();
-                    if (!parts[5].isEmpty()) {
-                        String[] disciplinArray = parts[5].split(",");
+                    if (!parts[6].isEmpty()) {
+                        String[] disciplinArray = parts[6].split(",");
                         for (String d : disciplinArray) {
                             discipliner.add(d);
                         }
                     }
-                    Medlemskab medlemskab = Medlemskab.valueOf(parts[6]);
-                    members.add(new Member(medlemId, navn, birthDate, konkurrenceSvømmer, active, discipliner, medlemskab));
+                    Medlemskab medlemskab = Medlemskab.valueOf(parts[7]);
+                    members.add(new Member(medlemId, navn, birthDate, konkurrenceSvømmer, active, restance, discipliner, medlemskab));
                 } catch (DateTimeException e) {
                         System.out.println("Forkert dato format for medlem: " + navn);
                     }
