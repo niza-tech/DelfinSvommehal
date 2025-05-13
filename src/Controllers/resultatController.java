@@ -1,63 +1,73 @@
 package Controllers;
 
 import File.IDisplay;
+import Medlem.Member;
+import Medlem.Medlemskab;
 
+import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class resultatController implements IDisplay {
 
+    private static final String MEDLEMS_FIL = "medlemsListe.txt";
+    private static final String TRAENINGS_FIL = "traening.txt";
+    private static final String STAEVNE_FIL = "staevner.txt";
 
-    public static void Competition() {
-        ArrayList<String> konkurrence = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
+    public static ArrayList<Member> erKonkurrenceSvømmer() {
+        ArrayList<Member> konkurrenceSvømmer = new ArrayList<>();
 
-        System.out.print("Navn på svømmer: ");
-        String input1 = sc.nextLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader(MEDLEMS_FIL))) {
+            String linje;
+            while ((linje = reader.readLine()) != null) {
 
-        System.out.println("Stævne: ");
-        String input2 = sc.nextLine();
+                String[] dele = linje.split(";");
+                if (dele.length >= 7) {
+                    int memberId = Integer.parseInt(dele[0]);
+                    String navn = dele[1];
+                    LocalDate birthDate = LocalDate.parse(dele[2]);
+                    boolean konkurrence = Boolean.parseBoolean(dele[3]);
+                    boolean active = Boolean.parseBoolean(dele[4]);
+                    boolean restance = Boolean.parseBoolean(dele[5]);
 
-        System.out.println("Placering: ");
-        String input3 = sc.nextLine();
+                    ArrayList<String> discipliner = new ArrayList<>();
+                    for (String d : dele[6].split(",")) {
+                        discipliner.add(d.trim());
+                    }
 
-        System.out.println("Tid i sekunder: ");
-        int input4 = sc.nextInt();
+                    Medlem.Medlemskab medlemskab = Medlem.Medlemskab.valueOf(dele[7].toUpperCase());
 
-        String registrering = "Navn på svømmer: " + input1 + "Stævne: " + input2 +
-                ". Placering: " + input3 + ". Tid: " + input4 + "\n";
-
-        konkurrence.add(registrering);
-
-        System.out.println("Registrering gennemført!\n");
-
-        MenuController.statistikMenu();
-
-
+                    if (konkurrence) {
+                        Member m = new Member(memberId, navn, birthDate, konkurrence, active, restance, discipliner, medlemskab);
+                        konkurrenceSvømmer.add(m);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Fejl ved læsning af medlemsfil: " + e.getMessage());
+        }
+        return konkurrenceSvømmer;
     }
 
-    public static void registerTraining() {
-        ArrayList<String> traening = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
+    public static void registrerTræning(int memberId, String dato, String varighed, String disciplin){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TRAENINGS_FIL, true))) {
+            writer.write(memberId + ";" + dato + ";" + varighed + ";" + disciplin);
+            writer.newLine();
+            System.out.println("Træning registreret for: " + memberId);
+        } catch (IOException e) {
+            System.out.println("Fejl ved skrivning til træningsfil: " + e.getMessage());
+        }
+    }
 
-        System.out.print("Navn på svømmer: ");
-        String input5 = sc.nextLine();
-
-        System.out.print("Disciplin: ");
-        String input6 = sc.nextLine();
-
-        System.out.println("Tid i sekunder: ");
-        int input7 = sc.nextInt();
-
-        String registrering = "Navn på svømmer: " + input5 +
-                "Disciplin: " + input6 + ". Tid: " + input7 + "\n";
-
-        traening.add(registrering);
-
-        System.out.println("Registrering gennemført!\n");
-
-        MenuController.statistikMenu();
-
+    public static void registrerStævne(int memberId, String dato, String staevneNavn, String tid){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(STAEVNE_FIL, true))) {
+            writer.write(memberId + ";" + dato + ";" + staevneNavn + ";" + tid);
+            writer.newLine();
+            System.out.println("Stævne registreret for " + memberId);
+        } catch (IOException e) {
+            System.out.println("Fejl ved skrivning til stævnefil: " + e.getMessage());
+        }
     }
 
     public static void showMembers() {

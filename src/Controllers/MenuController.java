@@ -138,7 +138,6 @@ switch (choice){
                     MenuController.trainingMenu();
                     break;
                 case 2:
-                    resultatController.Competition();
                     break;
                 case 3:
                     sprint = false;
@@ -168,7 +167,6 @@ switch (choice) {
         resultat.display();
         break;
     case 2:
-        resultatController.registerTraining();
         break;
     case 3:
         resultatController.showMembers();
