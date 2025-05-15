@@ -49,14 +49,14 @@ public class kontController {
         } catch (FileNotFoundException e) {
             System.out.println("Kunne ikke læse medlemsliste.txt");
         } catch (IllegalArgumentException e) {
-            System.out.println("Ugyldigt medlemskab.");
+            System.out.println("Ingen medlemmer fundet.");
         }
         return income;
     }
 
     public static void displayYearly(){
         double yearIncome = calculateYearly();
-        System.out.println("Forventet indtægt (årligt): " + yearIncome);
+        System.out.println("Forventet indtægt (årligt): " + yearIncome + "DKK");
     }
 
     public static void displayRestance(){

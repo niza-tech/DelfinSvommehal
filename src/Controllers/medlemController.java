@@ -192,7 +192,7 @@ public class medlemController implements IDisplay {
             }
         }
 
-        System.out.println("Er medlemmeren en konkurrencesvømmer? (true/false, ENTER for at behold \"" + memberToEdit.getName() + "\"): ");
+        System.out.println("Er medlemmeren en konkurrencesvømmer? (true/false, ENTER for at behold \"" + memberToEdit.getIsKonkurrenceSvømmer() + "\"): ");
         String konkurrenceInput = scanner.nextLine();
         if (!konkurrenceInput.isBlank()) {
             if (konkurrenceInput.equalsIgnoreCase("true")||konkurrenceInput.equalsIgnoreCase("false")) {

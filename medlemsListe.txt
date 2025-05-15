@@ -1,2 +1,1 @@
-1;Test;24;true;true;true;Butterfly,Crawl;SENIOR
-2;test2;23;false;false;false;;PASSIV
+1;Jihad Assi;22;true;true;false;Rygcrawl;SENIOR
