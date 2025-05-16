@@ -3,7 +3,10 @@ package Controllers;
 import Medlem.Medlemskab;
 import Medlem.Member;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
+
+import static Controllers.resultatController.*;
 
 public class MenuController {
     public void mainMenu() {
@@ -31,7 +34,7 @@ public class MenuController {
                     kontingentMenu();
                     break;
                 case 3:
-                    statistikMenu();
+                    trainingMenu();
                     break;
                 case 4:
                     y = false;
@@ -45,7 +48,7 @@ public class MenuController {
                 """
                         1. Medlemmer
                         2. Kontingent
-                        3. Vis resultater
+                        3. Træning & Stævner
                         4. Afslut program
                         """;
     }
@@ -119,42 +122,16 @@ switch (choice){
         }
     }
 
-    public static void statistikMenu(){
-        Scanner scanner = new Scanner(System.in);
-        boolean sprint = true;
-        while (sprint) {
-            System.out.println("1. Træning ");
-            System.out.println("2. Registrér konkurrencesvømmer ");
-            System.out.println("3. Tilbage ");
-
-            if (!scanner.hasNextInt()) {
-                System.out.println("Ugyldigt input!");
-                scanner.nextLine();
-                continue;
-            }
-            int choice = scanner.nextInt();
-            switch (choice) {
-                case 1:
-                    MenuController.trainingMenu();
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    sprint = false;
-                    break;
-            }
-        }
-    }
-
     public static void trainingMenu(){
         Scanner scanner = new Scanner(System.in);
         resultatController resultat = new resultatController();
         boolean runs = true;
         while (runs) {
 System.out.println("1. Vis top 5 for hver disciplin ");
-System.out.println("2. Opret");
-System.out.println("3. Vis alle");
-System.out.println("4. Tilbage");
+System.out.println("2. Registrer træning");
+System.out.println("3. Registrer stævne");
+System.out.println("4. Vis alle");
+System.out.println("5. Tilbage");
 
 if (!scanner.hasNextInt()) {
 System.out.println("Ugyldigt input!");
@@ -167,11 +144,14 @@ switch (choice) {
         resultat.display();
         break;
     case 2:
+        resultat.registrerTræning();
         break;
     case 3:
-        resultatController.showMembers();
-        break;
+        resultat.registrerStævne();
     case 4:
+        showMembers();
+        break;
+    case 5:
         runs = false;
         break;
 }
@@ -179,4 +159,4 @@ switch (choice) {
         }
 
     }
-}
+    }

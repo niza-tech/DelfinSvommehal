@@ -3,3 +3,11 @@
 3;Mikkel Godiksen;25;false;true;false;;SENIOR
 4;Sofie Rasmusen;65;false;true;false;;SENIOR_OVER60
 5;Carla Fransen;22;false;false;true;;PASSIV
+6;Eva Jakobsen;27;true;true;false;Rygcrawl,Brystsvømning;SENIOR
+7;Thomas Terkelsen;31;true;true;false;Rygcrawl;SENIOR
+8;Luka Poulsen;44;false;true;true;;SENIOR
+9;Jeppe Nilsen;33;true;true;false;Brystsvømning;SENIOR
+10;Lukas Juul;17;true;true;false;Butterfly;JUNIOR
+11;Juliane Guldberg;22;true;true;false;Rygcrawl;SENIOR
+12;Sofus Winter;25;true;true;false;Crawl;SENIOR
+13;Viktor Störm;26;true;true;false;Brystsvømning;SENIOR

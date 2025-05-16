@@ -1,8 +1,6 @@
 package Medlem;
 
 import java.util.ArrayList;
-import java.time.Period;
-import java.time.LocalDate;
 
 public class Member {
     private String name;
@@ -26,6 +24,7 @@ public class Member {
         this.svømmeDisciplin = svømmeDisciplin;
         this.medlemskab = medlemskab; // Assign membership
     }
+
 
             public String getName(){
                 return name;
@@ -106,4 +105,5 @@ public class Member {
                         ", KonkurrenceSvømmer: " + (konkurrenceSvømmer ? "Ja" : "Nej") +
                         ", Medlemskab: " + medlemskab;
             }
+
 }
