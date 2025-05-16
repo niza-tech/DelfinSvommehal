@@ -1,1 +1,2 @@
-1;Jihad Assi;22;true;true;false;Rygcrawl;SENIOR
+1;Jihad Assi;21;false;false;false;;PASSIV
+2;Julius Ring;21;true;true;false;Butterfly;SENIOR

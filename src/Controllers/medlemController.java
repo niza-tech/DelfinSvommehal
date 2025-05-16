@@ -16,7 +16,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class medlemController implements IDisplay {
-    private static ArrayList<Member> members = new ArrayList<>();
+    private static ArrayList<Member> members;
+
+    static {
+        loadMemberFromFile();
+        if (members == null) {
+            members = new ArrayList<>();
+        }
+    }
 
     public static List<Member> getMemberList(){
         return members;
@@ -192,7 +199,7 @@ public class medlemController implements IDisplay {
             }
         }
 
-        System.out.println("Er medlemmeren en konkurrencesvømmer? (true/false, ENTER for at behold \"" + memberToEdit.getIsKonkurrenceSvømmer() + "\"): ");
+        System.out.println("Er medlemmeren en konkurrencesvømmer? (true/false, ENTER for at behold \"" + memberToEdit.getName() + "\"): ");
         String konkurrenceInput = scanner.nextLine();
         if (!konkurrenceInput.isBlank()) {
             if (konkurrenceInput.equalsIgnoreCase("true")||konkurrenceInput.equalsIgnoreCase("false")) {
