@@ -16,14 +16,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class medlemController implements IDisplay {
-    private static ArrayList<Member> members;
-
-    static {
-        loadMemberFromFile();
-        if (members == null) {
-            members = new ArrayList<>();
-        }
-    }
+    public static ArrayList<Member> members = new ArrayList<>();
 
     public static List<Member> getMemberList(){
         return members;
@@ -35,9 +28,9 @@ public class medlemController implements IDisplay {
         System.out.print("Navn og efternavn på nyt medlem: ");
         String navn = scanner.nextLine();
 
-        System.out.print("Fødselsdato på nyt medlem (dd/MM/yyyy): ");
-        String birthDateString = scanner.nextLine();
-        LocalDate birthDate = LocalDate.parse(birthDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        System.out.print("Alder på nyt medlem: ");
+        int age = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.println("Er den nye medlem en konkurrencesvømmer? (true/false): ");
         boolean konkurrenceSvømmer = scanner.nextBoolean();
@@ -85,9 +78,9 @@ public class medlemController implements IDisplay {
 
         int newMedlemId = findLowestAvailableId();
 
-        Medlemskab medlemskab = determineMedlemskab(birthDate, active);
+        Medlemskab medlemskab = determineMedlemskab(age, active);
 
-        Member newMember = new Member(newMedlemId, navn, birthDate, konkurrenceSvømmer, active, restance, svømmeDiscipliner, medlemskab);
+        Member newMember = new Member(newMedlemId, navn, age, konkurrenceSvømmer, active, restance, svømmeDiscipliner, medlemskab);
 
         members.add(newMember);
 
@@ -257,16 +250,12 @@ public class medlemController implements IDisplay {
         System.out.println("Medlem er nu redigeret: " + memberToEdit);
     }
 
-    private static Medlemskab determineMedlemskab(LocalDate birthDate, boolean isActive) {
+    private static Medlemskab determineMedlemskab(int age, boolean isActive) {
 
         if (!isActive) {
             return Medlemskab.PASSIV;
         }
 
-        int age = LocalDate.now().getYear() - birthDate.getYear();
-        if (birthDate.isAfter(LocalDate.now().withYear(LocalDate.now().getYear()).minusYears(age))) {
-            age--;
-        }
         if (age < 18) {
             return Medlemskab.JUNIOR;
         } else if (age >= 18 && age < 60) {
@@ -296,7 +285,6 @@ public class medlemController implements IDisplay {
 
         if (file.exists()) {
             try (Scanner scanner = new Scanner(file)) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(";");
@@ -305,7 +293,7 @@ public class medlemController implements IDisplay {
                     int medlemId = Integer.parseInt(parts[0]);
                     String navn = parts[1];
                     try {
-                    LocalDate birthDate = LocalDate.parse(parts[2], formatter);
+                    int age = Integer.parseInt(parts[2]);
                     boolean konkurrenceSvømmer = Boolean.parseBoolean(parts[3]);
                     boolean active = Boolean.parseBoolean(parts[4]);
                     boolean restance = Boolean.parseBoolean(parts[5]);
@@ -317,7 +305,7 @@ public class medlemController implements IDisplay {
                         }
                     }
                     Medlemskab medlemskab = Medlemskab.valueOf(parts[7]);
-                    members.add(new Member(medlemId, navn, birthDate, konkurrenceSvømmer, active, restance, discipliner, medlemskab));
+                    members.add(new Member(medlemId, navn, age, konkurrenceSvømmer, active, restance, discipliner, medlemskab));
                 } catch (DateTimeException e) {
                         System.out.println("Forkert dato format for medlem: " + navn);
                     }

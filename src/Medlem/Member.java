@@ -7,16 +7,18 @@ import java.time.LocalDate;
 public class Member {
     private String name;
     private ArrayList<String> svømmeDisciplin;
-    private LocalDate birthDate;
+    //private LocalDate birthDate;
+    private int age;
     private int memberId;
     private boolean active;
     private boolean restance;
     private boolean konkurrenceSvømmer;
     private Medlem.Medlemskab medlemskab; // Added membership type
 
-    public Member(int memberId, String name, LocalDate birthDate, boolean konkurrenceSvømmer, boolean active, boolean restance, ArrayList<String> svømmeDisciplin, Medlem.Medlemskab medlemskab) {
+    public Member(int memberId, String name, int age, boolean konkurrenceSvømmer, boolean active, boolean restance, ArrayList<String> svømmeDisciplin, Medlem.Medlemskab medlemskab) {
         this.name = name;
-        this.birthDate = birthDate;
+        //this.birthDate = birthDate;
+        this.age = age;
         this.memberId = memberId;
         this.konkurrenceSvømmer = konkurrenceSvømmer;
         this.active = active;
@@ -29,13 +31,17 @@ public class Member {
                 return name;
             }
 
+            public int getAge() {
+        return age;
+            }
+
             public ArrayList<String> getSvømmeDisciplin() {
                 return svømmeDisciplin;
             }
 
-            public int getAge(){
-                return Period.between(birthDate, LocalDate.now()).getYears();
-            }
+           // public int getAge(){
+          //      return Period.between(birthDate, LocalDate.now()).getYears();
+           // }
 
             public int getMemberId(){
                 return memberId;
@@ -60,14 +66,17 @@ public class Member {
     public void setName(String name){
                 this.name = name;
             }
+            public void setAge(int age){
+        this.age = age;
+            }
 
             public void setSvømmeDisciplin(ArrayList <String> Svømmediscipliner) {
                 this.svømmeDisciplin = Svømmediscipliner;
             }
 
-            public void setBirthDate(LocalDate birthDate) {
-                this.birthDate = birthDate;
-            }
+          //  public void setBirthDate(LocalDate birthDate) {
+            //    this.birthDate = birthDate;
+            //}
 
             public void setMemberId(int memberId){
                 this.memberId = memberId;

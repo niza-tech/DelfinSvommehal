@@ -1,2 +1,5 @@
-1;Jihad Assi;21;false;false;false;;PASSIV
-2;Julius Ring;21;true;true;false;Butterfly;SENIOR
+1;Julius Ring;21;true;true;false;Butterfly;SENIOR
+2;Jihad Assi;22;false;false;false;;PASSIV
+3;Mikkel Godiksen;25;false;true;false;;SENIOR
+4;Sofie Rasmusen;65;false;true;false;;SENIOR_OVER60
+5;Carla Fransen;22;false;false;true;;PASSIV

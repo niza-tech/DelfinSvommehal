@@ -2,10 +2,8 @@ package Controllers;
 
 import File.IDisplay;
 import Medlem.Member;
-import Medlem.Medlemskab;
 
 import java.io.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -26,7 +24,7 @@ public class resultatController implements IDisplay {
                 if (dele.length >= 7) {
                     int memberId = Integer.parseInt(dele[0]);
                     String navn = dele[1];
-                    LocalDate birthDate = LocalDate.parse(dele[2]);
+                    int age = Integer.parseInt(dele[2]);
                     boolean konkurrence = Boolean.parseBoolean(dele[3]);
                     boolean active = Boolean.parseBoolean(dele[4]);
                     boolean restance = Boolean.parseBoolean(dele[5]);
@@ -39,7 +37,7 @@ public class resultatController implements IDisplay {
                     Medlem.Medlemskab medlemskab = Medlem.Medlemskab.valueOf(dele[7].toUpperCase());
 
                     if (konkurrence) {
-                        Member m = new Member(memberId, navn, birthDate, konkurrence, active, restance, discipliner, medlemskab);
+                        Member m = new Member(memberId, navn, age, konkurrence, active, restance, discipliner, medlemskab);
                         konkurrenceSvømmer.add(m);
                     }
                 }
@@ -50,7 +48,18 @@ public class resultatController implements IDisplay {
         return konkurrenceSvømmer;
     }
 
-    public static void registrerTræning(int memberId, String dato, String varighed, String disciplin){
+    public registrerTræning() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println(medlemController.members);
+        System.out.print("ID på medlem: ");
+        int ID = scanner.nextInt();
+
+
+        return newTræning;
+    }
+
+    public static void gemTræning(int memberId, String dato, String varighed, String disciplin){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(TRAENINGS_FIL, true))) {
             writer.write(memberId + ";" + dato + ";" + varighed + ";" + disciplin);
             writer.newLine();

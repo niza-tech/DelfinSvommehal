@@ -26,7 +26,7 @@ public class kontController {
 
                 if (parts.length >=7) {
                     boolean isActive = Boolean.parseBoolean(parts[4]);
-                    Medlemskab medlemskab = Medlemskab.valueOf(parts[6]);
+                    Medlemskab medlemskab = Medlemskab.valueOf(parts[7]);
 
                     if (medlemskab == Medlemskab.PASSIV) {
                         income += 500;
@@ -75,15 +75,15 @@ public class kontController {
                 String line = scanner.nextLine();
                 String[] parts = line.split(";");
 
-                if (parts.length >= 7) {
+                if (parts.length >= 8) {
                     boolean isRestance = Boolean.parseBoolean(parts[5]);
 
                     if (isRestance) {
                         found = true;
                         System.out.println("ID: " + parts[0] +
                                 ", Navn: " + parts[1] +
-                                ", Fødselsdato: " + parts[2] +
-                                ", Medlemskab: " + parts[6]);
+                                ", Alder: " + parts[2] +
+                                ", Medlemskab: " + parts[7]);
                     }
                 }
             }
