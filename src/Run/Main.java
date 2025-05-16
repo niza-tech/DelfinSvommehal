@@ -15,9 +15,3 @@ public class Main {
     }
 }
 
-
-/*TODO
-Alt der har med resultatControlleren at gøre.
-1. resultController display, sorter efter bedste i disciplin.
-2. Hvordan gemmer vi tider, træningsresultater, stævner osv?
- */
