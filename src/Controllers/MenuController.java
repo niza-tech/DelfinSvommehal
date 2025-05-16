@@ -127,11 +127,10 @@ switch (choice){
         resultatController resultat = new resultatController();
         boolean runs = true;
         while (runs) {
-System.out.println("1. Vis top 5 for hver disciplin ");
+System.out.println("\n1. Vis top 5 for hver disciplin ");
 System.out.println("2. Registrer træning");
 System.out.println("3. Registrer stævne");
-System.out.println("4. Vis alle");
-System.out.println("5. Tilbage");
+System.out.println("4. Tilbage");
 
 if (!scanner.hasNextInt()) {
 System.out.println("Ugyldigt input!");
@@ -149,9 +148,6 @@ switch (choice) {
     case 3:
         resultat.registrerStævne();
     case 4:
-        showMembers();
-        break;
-    case 5:
         runs = false;
         break;
 }

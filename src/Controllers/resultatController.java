@@ -170,8 +170,6 @@ public class resultatController implements IDisplay {
         }
     }
 
-    public static void showMembers() {
-    }
 
     @Override
     public void display() {
